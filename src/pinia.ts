@@ -10,3 +10,14 @@ export function usePinia(app: App) {
   }
   return pinia;
 }
+
+
+import { useCounterStore } from './store'
+
+const counter = useCounterStore()
+
+counter.count++
+// with autocompletion ✨
+counter.$patch({ count: counter.count + 1 })
+// or using an action instead
+counter.increment()

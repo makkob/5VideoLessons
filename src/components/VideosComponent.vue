@@ -48,6 +48,15 @@ import { defineComponent } from 'vue';
 import fakeApi from '../fakeApi';
 import { usePinia } from '../pinia';
 console.log('www');
+import { useCounterStore } from '../store'
+
+const counter = useCounterStore()
+
+counter.count++
+// with autocompletion ✨
+counter.$patch({ count: counter.count + 1 })
+// or using an action instead
+counter.increment()
 
 export default defineComponent({
   name: 'VideosComponent',
