@@ -6,7 +6,7 @@
     </h1>
     <p class="text">
       <span style="color: orange">Епізод {{ store.currentVideo + 1 }}:</span>
-      {{ fakeApi[0].title }}
+      {{ fakeApi[store.currentVideo].title }}
     </p>
     <br />
     <p class="text">{{ fakeApi[store.currentVideo].subtitle }}</p>
