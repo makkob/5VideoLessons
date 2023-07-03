@@ -5,39 +5,52 @@
       налаштуванні рекламних кампаній в Facebook + Instagram
     </h1>
     <p class="text">
-      <span style="color: orange">Епізод 1:</span> {{ fakeApi[0].title }}
+      <span style="color: orange">Епізод {{ store.currentVideo + 1 }}:</span>
+      {{ fakeApi[0].title }}
     </p>
     <br />
-    <p class="text">{{ fakeApi[0].subtitle }}</p>
+    <p class="text">{{ fakeApi[store.currentVideo].subtitle }}</p>
 
     <div class="grid">
       <div class="main-video-container">
-        <q-video :src="fakeApi[0].video_url"></q-video>
+        <q-video
+          ref="videoPlayer"
+          :src="fakeApi[store.currentVideo].video_url"
+          :ratio="16 / 9"
+          @mouseover="
+            store.timer.id
+              ? store.timerPause()
+              : store.timerStart(fakeApi[store.currentVideo].video_time)
+          "
+        />
       </div>
       <div class="extra-videos-container">
         <div
           class="extra-videos-item"
+          :class="[{ inactive: index >= store.maxVideo }]"
           v-for="(lesson, index) in fakeApi"
           :key="index"
+          @click="store.$state.maxVideo > index && store.setVideo(index)"
         >
           <q-img
-            src="https://i.ytimg.com/vi/k3_tw44QsZQ/hq720.jpg"
+            :src="getThumbnailUrl(lesson.video_url)"
             class="thumbnail"
+            :ratio="16 / 9"
           />
-          <q-p class="extra-videos-item-text"> {{ lesson.title }}</q-p>
+          <p class="extra-videos-item-text">{{ lesson.title }}</p>
         </div>
       </div>
 
       <div class="video-description-container">
-        <q-p class="text-cursive">У цьому епізоді ви дізнаєтесь:</q-p>
+        <p class="text-cursive">У цьому епізоді ви дізнаєтесь:</p>
         <q-list class="list">
-          <q-item key="1">1. {{ fakeApi[0].description }}</q-item>
+          <q-item key="1">{{ fakeApi[store.currentVideo].description }}</q-item>
         </q-list>
       </div>
 
       <div class="next-episode">
         <b>Вже переглянули? Отримайте доступ до наступного:</b><br /><br />
-        <q-btn color="orange">Наступний епізод</q-btn>
+        <q-btn color="orange" @click="store.next()">Наступний епізод</q-btn>
       </div>
     </div>
   </div>
@@ -46,18 +59,35 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import fakeApi from '../fakeApi';
-import { usePinia } from '../pinia';
-console.log('www');
+import { useVideosStore } from '../store';
 
 export default defineComponent({
   name: 'VideosComponent',
   props: {},
   setup() {
+    const store = useVideosStore();
     return {
       fakeApi,
+      store,
+      getThumbnailUrl,
     };
   },
 });
+
+const getVideoId = (url: string) => {
+  const match = url.match(
+    /(?:[?&]v=|\/embed\/|\/\d\/|\/vi\/|https?:\/\/(?:www\.)?youtu\.be\/)([^&\n?#]+)/
+  );
+  return match && match[1];
+};
+
+const getThumbnailUrl = (videoUrl: string) => {
+  const videoId = getVideoId(videoUrl);
+  if (videoId) {
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }
+  return '';
+};
 </script>
 
 <style>
@@ -147,6 +177,9 @@ export default defineComponent({
   margin-bottom: 0.3rem;
   background-color: orange;
   color: white;
+}
+.extra-videos-item:hover:not(.inactive) {
+  cursor: pointer;
 }
 
 .thumbnail {
