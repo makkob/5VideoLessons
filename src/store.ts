@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { defineStore } from 'pinia';
 import fakeApi from './fakeApi';
 
@@ -73,20 +72,3 @@ export const useVideosStore = defineStore('videos', {
     },
   },
 });
-=======
-// stores/counter.js
-import { defineStore } from 'pinia'
-
-export const useCounterStore = defineStore('counter', {
-  state: () => {
-    return { count: 0 }
-  },
-  // could also be defined as
-  // state: () => ({ count: 0 })
-  actions: {
-    increment() {
-      this.count++
-    },
-  },
-})
->>>>>>> dd5563ed17506a48fe6fc25ac014512c50fbab7d

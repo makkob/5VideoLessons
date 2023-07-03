@@ -59,13 +59,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import fakeApi from '../fakeApi';
-<<<<<<< HEAD
+
 import { useVideosStore } from '../store';
-=======
-console.log('www');
-import {useCounterStore} from "../store"
-console.log(useCounterStore)
->>>>>>> dd5563ed17506a48fe6fc25ac014512c50fbab7d
 
 export default defineComponent({
   name: 'VideosComponent',
