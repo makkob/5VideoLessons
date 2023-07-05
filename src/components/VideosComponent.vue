@@ -50,7 +50,13 @@
 
       <div class="next-episode">
         <b>Вже переглянули? Отримайте доступ до наступного:</b><br /><br />
-        <q-btn color="orange" @click="store.next()">Наступний епізод</q-btn>
+
+        <q-btn
+          color="orange"
+          @click="store.next()"
+          :disabled="store.isButtonDisabled"
+          >Наступний епізод</q-btn
+        >
       </div>
     </div>
   </div>

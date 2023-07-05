@@ -4,6 +4,7 @@ import fakeApi from './fakeApi';
 export const useVideosStore = defineStore('videos', {
   state: () => {
     return {
+      isButtonDisabled: true as boolean,
       currentVideo: 0,
       maxVideo: 1,
       timer: {
@@ -22,11 +23,13 @@ export const useVideosStore = defineStore('videos', {
         this.currentVideo++;
         this.maxVideo++;
         this.timerReset();
+        this.isButtonDisabled = true;
 
         console.log(this.$state);
       } else {
         this.currentVideo++;
         this.timerReset();
+
         console.log(this.$state);
       }
     },
@@ -42,13 +45,15 @@ export const useVideosStore = defineStore('videos', {
         this.timer.time = time + Date.now();
       }
       this.timer.paused = false;
-      this.timer.id = setTimeout(
-        () => this.next(),
-        this.timer.time - Date.now()
-      ) as unknown as number;
+      this.timer.id = setTimeout(() => {
+        // this.next();
+        this.isButtonDisabled = false;
+        alert('Вам доступний новий урок!');
+      }, this.timer.time - Date.now()) as unknown as number;
 
       console.log(this.$state);
     },
+
     timerPause() {
       if (this.timer.id && !this.timer.paused && this.timer.time) {
         clearTimeout(this.timer.id);
@@ -56,6 +61,7 @@ export const useVideosStore = defineStore('videos', {
         const remainingTime = this.timer.time - elapsedTime;
         this.timer.id = null;
         this.timer.time = remainingTime;
+
         this.timer.paused = true;
         console.log('timer paused');
         console.log(this.$state);
@@ -68,6 +74,7 @@ export const useVideosStore = defineStore('videos', {
       this.timer.id = null;
       this.timer.time = null;
       this.timer.paused = false;
+      this.isButtonDisabled = true;
       console.log(this.$state);
     },
   },
