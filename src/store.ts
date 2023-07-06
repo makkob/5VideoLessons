@@ -29,7 +29,6 @@ export const useVideosStore = defineStore('videos', {
       } else {
         this.currentVideo++;
         this.timerReset();
-
         console.log(this.$state);
       }
     },
@@ -47,8 +46,8 @@ export const useVideosStore = defineStore('videos', {
       this.timer.paused = false;
       this.timer.id = setTimeout(() => {
         // this.next();
+        this.maxVideo++;
         this.isButtonDisabled = false;
-        alert('Вам доступний новий урок!');
       }, this.timer.time - Date.now()) as unknown as number;
 
       console.log(this.$state);

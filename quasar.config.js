@@ -10,6 +10,7 @@
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 
+const { Notify } = require('quasar');
 const { configure } = require('quasar/wrappers');
 
 module.exports = configure(function (ctx) {
@@ -99,7 +100,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['Notify'],
     },
 
     // animations: 'all', // --- includes all animations

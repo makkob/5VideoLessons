@@ -10,14 +10,14 @@ const lessons = [
     title: 'Друге знайомство',
     subtitle: 'Підзаголовок уроку 2',
     video_url: 'https://www.youtube.com/embed/a9sHJdyVZ28',
-    video_time: 10000,
+    video_time: 11000,
     description: 'Опис уроку 2',
   },
   {
     title: 'Третій спікер',
     subtitle: 'Підзаголовок уроку 3',
     video_url: 'https://www.youtube.com/embed/aZfQF2LL6Xo',
-    video_time: 5000,
+    video_time: 6000,
     description: 'Опис уроку 3',
   },
   {
