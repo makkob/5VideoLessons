@@ -31,7 +31,7 @@ const lessons = [
     title: 'Перед фінал',
     subtitle: 'Підзаголовок уроку 5',
     video_url: 'https://www.youtube.com/embed/xAx6ugvcxio',
-    video_time: 29000,
+    video_time: 28000,
     description: 'Опис уроку 5',
   },
   {
