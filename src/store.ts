@@ -46,7 +46,7 @@ export const useVideosStore = defineStore('videos', {
       this.timer.paused = false;
       this.timer.id = setTimeout(() => {
         // this.next();
-        this.maxVideo++;
+        // this.maxVideo++;
         this.isButtonDisabled = false;
       }, this.timer.time - Date.now()) as unknown as number;
 
